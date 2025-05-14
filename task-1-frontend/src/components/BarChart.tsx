@@ -29,11 +29,26 @@ const options: ChartOptions = {
   plugins: {
     tooltip: {
       callbacks: {
+        title: (tooltipItems: TooltipItem[]) => {
+          const index = tooltipItems[0].dataIndex;
+          return `Product= ${chartData[index].product}`;
+        },
+
+        label: (tooltipItem:TooltipItem) => {
+          return  `TotalSales= ${chartData[tooltipItem.dataIndex].totalSales}`;
+        },
         afterBody: (tooltipItems: TooltipItem[]) => {
           const index = tooltipItems[0].dataIndex;
-          return `TotalValue: ${chartData[index].totalValue}`;
+          return `TotalValue= ${chartData[index].totalValue}`;
         },
       },
+      displayColors: false, // Hide color box in tooltip
+      backgroundColor: "#fff",
+      titleColor: "#000",
+      bodyColor: "#000",
+      borderColor: "#ddd",
+      borderWidth: 1,
+      padding: 10,
     },
     legend: {
       display: false,
@@ -45,6 +60,9 @@ const options: ChartOptions = {
         display: true,
         text: "Product",
       },
+      grid: {
+        display: false,
+      },
     },
     y: {
       title: {
@@ -52,6 +70,9 @@ const options: ChartOptions = {
         text: "TotalSales",
       },
       beginAtZero: true,
+      grid: {
+        color: "#e0e0e0",
+      },
     },
   },
 };

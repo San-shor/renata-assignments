@@ -13,8 +13,17 @@ export interface ChartOptions {
   plugins: {
     tooltip: {
       callbacks: {
+        title: (tooltipItems: TooltipItem[]) => string;
+label: (tooltipItem: TooltipItem) => string;
         afterBody: (tooltipItems: TooltipItem[]) => string;
       };
+      displayColors: boolean;
+      backgroundColor: string;
+      titleColor: string;
+      bodyColor: string;
+      borderColor: string;
+      borderWidth: number;
+      padding: number;
     };
     legend: {
       display: boolean;
@@ -26,6 +35,10 @@ export interface ChartOptions {
         display: boolean;
         text: string;
       };
+
+      grid: {
+        display: boolean;
+      };
     };
     y: {
       title: {
@@ -33,6 +46,9 @@ export interface ChartOptions {
         text: string;
       };
       beginAtZero: boolean;
+      grid: {
+        color: string;
+      };
     };
   };
 }
