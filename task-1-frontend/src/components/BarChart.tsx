@@ -10,6 +10,7 @@ import { Bar } from "react-chartjs-2";
 import type { ChartOptions, TooltipItem } from "../type/chartdata";
 import { chartData } from "../data/chartData";
 import { getColor } from "../utils/getColor";
+import { Box, Typography } from "@mui/material";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -34,15 +35,15 @@ const options: ChartOptions = {
           return `Product= ${chartData[index].product}`;
         },
 
-        label: (tooltipItem:TooltipItem) => {
-          return  `TotalSales= ${chartData[tooltipItem.dataIndex].totalSales}`;
+        label: (tooltipItem: TooltipItem) => {
+          return `TotalSales= ${chartData[tooltipItem.dataIndex].totalSales}`;
         },
         afterBody: (tooltipItems: TooltipItem[]) => {
           const index = tooltipItems[0].dataIndex;
           return `TotalValue= ${chartData[index].totalValue}`;
         },
       },
-      displayColors: false, // Hide color box in tooltip
+      displayColors: false,
       backgroundColor: "#fff",
       titleColor: "#000",
       bodyColor: "#000",
@@ -79,9 +80,60 @@ const options: ChartOptions = {
 
 const BarChart = () => {
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "start",
+        justifyContent: "space-between",
+        gap: "50px",
+        maxWidth: "calc(100vw - 140px)",
+      }}
+    >
       <Bar options={options} data={data} />
-    </div>
+      <Typography>TotalValue</Typography>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "start",
+          gap: "5px",
+        }}
+      >
+        <div
+          style={{
+            backgroundImage:
+              "linear-gradient(to top, #fff5eb,#fee6ce,#fdd0a2,#fdae6b,#fd8d3c,#f16913,#d94801,#a63603,#7f2704)",
+            height: "350px",
+            width: "20px",
+          }}
+        >
+          &nbsp;
+        </div>
+        <div
+          style={{
+            height: "350px",
+            position: "relative",
+            pointerEvents: "none",
+          }}
+        >
+          {[40, 35, 30, 25, 20, 15, 10].map((val, idx) => (
+            <div
+              key={val}
+              style={{
+                position: "absolute",
+                top: `${(idx / 6) * 100}%`,
+
+                fontSize: "12px",
+                transform: "translateY(-50%)",
+              }}
+            >
+              {val}
+            </div>
+          ))}
+        </div>
+      </div>
+    </Box>
   );
 };
 
