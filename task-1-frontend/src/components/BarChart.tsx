@@ -7,39 +7,61 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import type { ChartOptions, TooltipItem } from "../type/chartdata";
+import { chartData } from "../data/chartData";
+import { getColor } from "../utils/getColor";
 
-export const options = {
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+
+export const data = {
+  labels: chartData.map((item) => item.product),
+  datasets: [
+    {
+      label: "Total Sales",
+      data: chartData.map((item) => item.totalSales),
+      backgroundColor: chartData.map((d) => getColor(d.totalValue)),
+    },
+  ],
+};
+
+const options: ChartOptions = {
   responsive: true,
   plugins: {
-    legend: {
-      position: 'top' as const,
+    tooltip: {
+      callbacks: {
+        afterBody: (tooltipItems: TooltipItem[]) => {
+          const index = tooltipItems[0].dataIndex;
+          return `TotalValue: ${chartData[index].totalValue}`;
+        },
+      },
     },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
+    legend: {
+      display: false,
+    },
+  },
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: "Product",
+      },
+    },
+    y: {
+      title: {
+        display: true,
+        text: "TotalSales",
+      },
+      beginAtZero: true,
     },
   },
 };
 
-const labels = ['ghh','dww','aaa','ooo','hgt','ytt','qzy','prp','eee','rtt'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [15,10,10,8,7,7,7,7,7,5],
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    
-  ],
-};
-
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 const BarChart = () => {
-  return <div>
-    <Bar options={options} data={data}/>
-  </div>;
+  return (
+    <div>
+      <Bar options={options} data={data} />
+    </div>
+  );
 };
 
 export default BarChart;
