@@ -52,3 +52,8 @@ export interface ChartOptions {
     };
   };
 }
+
+export interface GaugeChartData {
+  month: string;
+  sales: number;
+}
