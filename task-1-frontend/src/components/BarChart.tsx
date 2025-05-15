@@ -7,7 +7,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import type { ChartOptions, TooltipItem } from "../type/chartdata";
+import type { TooltipItem } from "../type/chartdata";
 import { chartData } from "../data/chartData";
 import { getColor } from "../utils/getColor";
 import { Box, Stack } from "@mui/material";
@@ -81,7 +81,7 @@ const options = {
 const BarChart = () => {
   return (
     <Stack direction={"row"} justifyContent={"center"} gap={2}>
-      <Box height={"350px"} width={"100%"}>
+      <Box sx={{ height: "350px", width: "100%" }}>
         <Bar options={options} data={data} />
       </Box>
 
@@ -96,7 +96,7 @@ const BarChart = () => {
           className="h-[350px] w-[20px]"
           style={{
             backgroundImage:
-              "linear-gradient(to top, #fff5eb,#fee6ce,#fdd0a2,#fdae6b,#fd8d3c,#f16913,#d94801,#a63603,#7f2704)",
+              "linear-gradient(to top,var(--bar-color-1), var(--bar-color-2), var(--bar-color-3), var(--bar-color-4), var(--bar-color-5), var(--bar-color-6), var(--bar-color-7), var(--bar-color-8), var(--bar-color-9))",
           }}
         >
           &nbsp;

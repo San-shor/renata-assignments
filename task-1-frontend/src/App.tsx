@@ -2,6 +2,7 @@ import BarChart from "./components/BarChart";
 import GaugeChart from "./components/GaugeChart";
 import { Stack, Button, Box } from "@mui/material";
 import { useState } from "react";
+import "./App.css";
 
 function App() {
   const [selectedChart, setSelectedChart] = useState<"bar" | "gauge" | null>(
@@ -20,9 +21,18 @@ function App() {
         >
           <Button
             variant="contained"
-            color="primary"
             size="large"
-            sx={{ width: "200px" }}
+            sx={{
+              width: "200px",
+              borderRadius: "12px",
+              paddingY: 1.5,
+              fontWeight: "bold",
+
+              background: "var(--blue-light)",
+              color: "var(--blue-dark)",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+              textTransform: "capitalize",
+            }}
             onClick={() => setSelectedChart("bar")}
           >
             Bar Chart
@@ -31,7 +41,16 @@ function App() {
             variant="contained"
             color="primary"
             size="large"
-            sx={{ width: "200px" }}
+            sx={{
+              width: "200px",
+              borderRadius: "12px",
+              paddingY: 1.5,
+              fontWeight: "bold",
+              backgroundColor: "var(--green-light)",
+              color: "var(--green-dark)",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+              textTransform: "capitalize",
+            }}
             onClick={() => setSelectedChart("gauge")}
           >
             Gauge Chart
