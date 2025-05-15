@@ -14,7 +14,7 @@ export interface ChartOptions {
     tooltip: {
       callbacks: {
         title: (tooltipItems: TooltipItem[]) => string;
-label: (tooltipItem: TooltipItem) => string;
+        label: (tooltipItem: TooltipItem) => string;
         afterBody: (tooltipItems: TooltipItem[]) => string;
       };
       displayColors: boolean;
