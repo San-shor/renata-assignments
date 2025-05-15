@@ -10,7 +10,7 @@ import { Bar } from "react-chartjs-2";
 import type { TooltipItem } from "../type/chartdata";
 import { chartData } from "../data/chartData";
 import { getColor } from "../utils/getColor";
-import { Box, Stack } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -76,55 +76,62 @@ const options = {
       },
     },
   },
+  maintainAspectRatio: false,
+  // width: "100px ",
 };
 
 const BarChart = () => {
   return (
-    <Stack direction={"row"} justifyContent={"center"} gap={2}>
-      <Box sx={{ height: "350px", width: "100%" }}>
+    <Grid spacing={5} container pr={10}>
+      <Grid size={11.5} height={"500px"}>
         <Bar options={options} data={data} />
-      </Box>
-
-      <Stack
-        direction={"row"}
-        alignItems={"start"}
-        justifyContent={"space-between"}
-        gap={0.5}
-        pr={2}
-      >
-        <div
-          className="h-[350px] w-[20px]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to top,var(--bar-color-1), var(--bar-color-2), var(--bar-color-3), var(--bar-color-4), var(--bar-color-5), var(--bar-color-6), var(--bar-color-7), var(--bar-color-8), var(--bar-color-9))",
-          }}
-        >
-          &nbsp;
-        </div>
-        <Box
-          style={{
-            height: "350px",
-            position: "relative",
-            pointerEvents: "none",
-          }}
-        >
-          {[40, 35, 30, 25, 20, 15, 10].map((val, idx) => (
+      </Grid>
+      <Grid size={0.5}>
+        <Stack gap={1}>
+          <Typography variant="subtitle2" fontSize={12}>
+            TotalValue
+          </Typography>
+          <Stack
+            direction={"row"}
+            alignItems={"start"}
+            gap={0.5}
+            justifySelf={"end"}
+          >
             <div
-              key={val}
+              className="h-[350px] w-[20px]"
               style={{
-                position: "absolute",
-                top: `${(idx / 6) * 100}%`,
-
-                fontSize: "12px",
-                transform: "translateY(-50%)",
+                backgroundImage:
+                  "linear-gradient(to top,var(--bar-color-1), var(--bar-color-2), var(--bar-color-3), var(--bar-color-4), var(--bar-color-5), var(--bar-color-6), var(--bar-color-7), var(--bar-color-8), var(--bar-color-9))",
               }}
             >
-              {val}
+              &nbsp;
             </div>
-          ))}
-        </Box>
-      </Stack>
-    </Stack>
+            <Box
+              style={{
+                height: "350px",
+                position: "relative",
+                pointerEvents: "none",
+              }}
+            >
+              {[40, 35, 30, 25, 20, 15, 10].map((val, idx) => (
+                <div
+                  key={val}
+                  style={{
+                    position: "absolute",
+                    top: `${(idx / 6) * 100}%`,
+
+                    fontSize: "12px",
+                    transform: "translateY(-50%)",
+                  }}
+                >
+                  {val}
+                </div>
+              ))}
+            </Box>
+          </Stack>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 };
 
