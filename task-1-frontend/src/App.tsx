@@ -1,13 +1,16 @@
 import BarChart from "./components/BarChart";
 import GaugeChart from "./components/GaugeChart";
-import { Stack, Button, Box } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import { useState } from "react";
 import "./App.css";
+import { CHART_TYPES } from "./constants/constants";
+import ChartButton from "./components/ChartButton";
 
 function App() {
-  const [selectedChart, setSelectedChart] = useState<"bar" | "gauge" | null>(
-    null
-  );
+  const { BAR, GAUGE } = CHART_TYPES;
+  const [selectedChart, setSelectedChart] = useState<
+    typeof BAR | typeof GAUGE | null
+  >(null);
 
   return (
     <Box maxWidth={"calc(100vw - 100px)"} margin={"auto"}>
@@ -19,46 +22,23 @@ function App() {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Button
-            variant="contained"
-            size="large"
+          <ChartButton
+            chartType={BAR}
+            onClick={setSelectedChart}
+            sx={{ background: "var(--blue-light)", color: "var(--blue-dark)" }}
+          />
+          <ChartButton
+            chartType={GAUGE}
+            onClick={setSelectedChart}
             sx={{
-              width: "200px",
-              borderRadius: "12px",
-              paddingY: 1.5,
-              fontWeight: "bold",
-
-              background: "var(--blue-light)",
-              color: "var(--blue-dark)",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-              textTransform: "capitalize",
-            }}
-            onClick={() => setSelectedChart("bar")}
-          >
-            Bar Chart
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            sx={{
-              width: "200px",
-              borderRadius: "12px",
-              paddingY: 1.5,
-              fontWeight: "bold",
               backgroundColor: "var(--green-light)",
               color: "var(--green-dark)",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-              textTransform: "capitalize",
             }}
-            onClick={() => setSelectedChart("gauge")}
-          >
-            Gauge Chart
-          </Button>
+          />
         </Stack>
 
-        {selectedChart === "bar" && <BarChart />}
-        {selectedChart === "gauge" && <GaugeChart />}
+        {selectedChart === BAR && <BarChart />}
+        {selectedChart === GAUGE && <GaugeChart />}
       </Stack>
     </Box>
   );
