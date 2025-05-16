@@ -1,5 +1,4 @@
 import {
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -17,6 +16,11 @@ import { useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
 import { useState } from "react";
+const MARITAL_STATUS_TYPES = {
+  SINGLE: "Single",
+  MARRIED: "Married",
+  DIVORCED: "Divorced",
+};
 
 const CustomerTable = () => {
   const theme = useTheme();
@@ -43,11 +47,7 @@ const CustomerTable = () => {
         }}
       >
         <Table stickyHeader aria-label="customer table">
-          <TableHead
-            sx={{
-              backgroundColor: alpha(theme.palette.grey[400], 0.24),
-            }}
-          >
+          <TableHead>
             <TableRow>
               {[
                 "ID",
@@ -62,6 +62,7 @@ const CustomerTable = () => {
                   key={header}
                   align="center"
                   sx={{
+                    backgroundColor: alpha(theme.palette.grey[400], 0.24),
                     color: theme.palette.text.secondary,
                     fontWeight: "bold",
                   }}
@@ -84,11 +85,22 @@ const CustomerTable = () => {
                     <Chip
                       label={customer.maritalStatus}
                       sx={{
-                        backgroundColor: alpha(
-                          theme.palette.secondary.light,
-                          0.24
-                        ),
-                        color: theme.palette.secondary.main,
+                        backgroundColor:
+                          customer.maritalStatus ===
+                          MARITAL_STATUS_TYPES.MARRIED
+                            ? alpha(theme.palette.success.light, 0.2)
+                            : customer.maritalStatus ===
+                              MARITAL_STATUS_TYPES.SINGLE
+                            ? alpha(theme.palette.secondary.light, 0.2)
+                            : alpha(theme.palette.warning.light, 0.2),
+                        color:
+                          customer.maritalStatus ===
+                          MARITAL_STATUS_TYPES.MARRIED
+                            ? theme.palette.success.main
+                            : customer.maritalStatus ===
+                              MARITAL_STATUS_TYPES.SINGLE
+                            ? theme.palette.secondary.main
+                            : theme.palette.warning.main,
                         fontWeight: "bold",
                       }}
                     />
