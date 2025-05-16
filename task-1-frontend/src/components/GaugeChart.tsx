@@ -4,10 +4,12 @@ import { gaugeChartData } from "../data/chartData";
 import type { GaugeChartData } from "../type/chartdata";
 import { Grid, Stack, Button, Typography } from "@mui/material";
 import { formatNumber } from "../utils/formatNumber";
+import { STATUS_THRESHOLD } from "../constants/constants";
 
 const getStatus = (value: number): string => {
-  if (value < 3000000) return "Low";
-  if (value < 7000000) return "Medium";
+  const { LOW, MEDIUM } = STATUS_THRESHOLD;
+  if (value <= LOW) return "Low";
+  if (value <= MEDIUM) return "Medium";
   return "High";
 };
 
