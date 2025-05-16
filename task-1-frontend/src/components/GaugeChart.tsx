@@ -131,7 +131,7 @@ const GaugeChart = () => {
         />
       </Grid>
       <Grid size={3}>
-        <Stack direction={"row"} alignItems={"start"}>
+        <Stack direction={"row"} alignItems={"start"} gap={1}>
           <Button
             sx={{
               backgroundColor: "primary.main",
