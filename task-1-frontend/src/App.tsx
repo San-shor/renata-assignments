@@ -25,15 +25,12 @@ function App() {
           <ChartButton
             chartType={BAR}
             onClick={setSelectedChart}
-            sx={{ background: "var(--blue-light)", color: "var(--blue-dark)" }}
+            isActive={selectedChart === BAR}
           />
           <ChartButton
             chartType={GAUGE}
             onClick={setSelectedChart}
-            sx={{
-              backgroundColor: "var(--green-light)",
-              color: "var(--green-dark)",
-            }}
+            isActive={selectedChart === GAUGE}
           />
         </Stack>
 

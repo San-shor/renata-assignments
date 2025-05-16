@@ -22,7 +22,6 @@ export const gaugeChartData: GaugeChartData[] = [
   { month: "June", sales: 600000 },
   { month: "July", sales: 700000 },
   { month: "August", sales: 800000 },
-
   { month: "September", sales: 900000 },
   { month: "October", sales: 1000000 },
   { month: "November", sales: 5100000 },

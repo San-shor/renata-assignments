@@ -14,7 +14,7 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-export const data = {
+const data = {
   labels: chartData.map((item) => item.product),
   datasets: [
     {
@@ -77,10 +77,11 @@ const options = {
     },
   },
   maintainAspectRatio: false,
-  // width: "100px ",
 };
 
 const BarChart = () => {
+  const valueRangeHeight = 350;
+
   return (
     <Grid spacing={5} container pr={10}>
       <Grid size={11.5} height={"500px"}>
@@ -98,7 +99,7 @@ const BarChart = () => {
             justifySelf={"end"}
           >
             <div
-              className="h-[350px] w-[20px]"
+              className={`h-[${valueRangeHeight}px] w-[20px]`}
               style={{
                 backgroundImage:
                   "linear-gradient(to top,var(--bar-color-1), var(--bar-color-2), var(--bar-color-3), var(--bar-color-4), var(--bar-color-5), var(--bar-color-6), var(--bar-color-7), var(--bar-color-8), var(--bar-color-9))",
@@ -108,7 +109,7 @@ const BarChart = () => {
             </div>
             <Box
               style={{
-                height: "350px",
+                height: `${valueRangeHeight}px`,
                 position: "relative",
                 pointerEvents: "none",
               }}
@@ -119,7 +120,6 @@ const BarChart = () => {
                   style={{
                     position: "absolute",
                     top: `${(idx / 6) * 100}%`,
-
                     fontSize: "12px",
                     transform: "translateY(-50%)",
                   }}
