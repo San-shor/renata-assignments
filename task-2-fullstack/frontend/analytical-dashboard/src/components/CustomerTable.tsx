@@ -38,7 +38,14 @@ const CustomerTable = () => {
     setPage(0);
   };
   return (
-    <Card>
+    <Card
+      sx={{
+        boxShadow: `0 0 2px 0 ${alpha(
+          theme.palette.grey[500],
+          0.2
+        )}, 0 12px 24px -4px ${alpha(theme.palette.grey[500], 0.12)}`,
+      }}
+    >
       <TableContainer
         sx={{
           position: "relative",

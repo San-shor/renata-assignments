@@ -1,12 +1,14 @@
 import { Outlet } from "react-router";
 import SideBar from "../components/SideBar";
-import { Stack } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 
 const Layout = () => {
   return (
     <Stack direction={"row"}>
       <SideBar />
-      <Outlet />
+      <Container sx={{ pt: 2 }}>
+        <Outlet />
+      </Container>
     </Stack>
   );
 };

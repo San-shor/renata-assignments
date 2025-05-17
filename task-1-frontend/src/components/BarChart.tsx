@@ -107,6 +107,7 @@ const BarChart = () => {
             >
               &nbsp;
             </div>
+
             <Box
               style={{
                 height: `${valueRangeHeight}px`,
