@@ -41,13 +41,10 @@ const CardComponent = ({ icon, label, value, sx }: CardComponentProps) => {
         >
           {icon}
         </Box>
-        <Typography
-          variant="subtitle1"
-          sx={{ fontWeight: 600, color: theme.palette.text.secondary }}
-        >
+        <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
           {label}
         </Typography>
-        <Typography variant="h4" fontWeight="bold" color="text.primary">
+        <Typography variant="h6" fontWeight="bold">
           {value}
         </Typography>
       </Stack>
