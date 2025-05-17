@@ -13,6 +13,7 @@ import {
 } from "../utils/utils";
 import { customerData } from "../data/CustomerData";
 import { alpha } from "@mui/material";
+import ScatterChart from "./chart/ScatterChart";
 ChartJS.register(BarElement, CategoryScale, LinearScale, ArcElement);
 
 export default function ChartComponent() {
@@ -108,7 +109,9 @@ export default function ChartComponent() {
             </Box>
           </Card>
         </Grid>
-        <Grid size={6}></Grid>
+        <Grid size={6}>
+          <ScatterChart />
+        </Grid>
       </Grid>
     </>
   );
