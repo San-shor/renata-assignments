@@ -1,4 +1,4 @@
-import { Grid, Stack } from "@mui/material";
+import { Button, Grid, Stack } from "@mui/material";
 import CardComponent from "../components/Card";
 import { customerData } from "../data/CustomerData";
 import { BsPeopleFill, BsGenderAmbiguous } from "react-icons/bs";
@@ -8,33 +8,47 @@ import { alpha } from "@mui/material/styles";
 import ChartComponent from "../components/ChartComponent";
 import { calculateAverageIncomePercentage, countGender } from "../utils/utils";
 import FiltersBar from "../components/FilterBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { CustomerData, TFilter } from "../type/type";
+import { DIVISIONS } from "../constants/constants";
+
+const emptyFilter: TFilter = {
+  gender: "",
+  division: "",
+  maritalStatus: "",
+};
 
 const Dashboard = () => {
-  const [filters, setFilters] = useState({
-    gender: "",
-    division: "",
-    maritalStatus: "",
-  });
+  const [filters, setFilters] = useState<TFilter>(emptyFilter);
 
-  // Apply filters
-  const filteredData = customerData.filter((customer) => {
-    return (
-      (filters.gender
-        ? customer.gender.toLowerCase() === filters.gender
-        : true) &&
-      (filters.division
-        ? customer.division.toLowerCase() === filters.division
-        : true) &&
-      (filters.maritalStatus
-        ? customer.maritalStatus.toLowerCase() === filters.maritalStatus
-        : true)
-    );
-  });
+  const [filteredData, setFilteredData] =
+    useState<CustomerData[]>(customerData);
+
+  useEffect(() => {
+    const newFilteredData = customerData.filter((customer) => {
+      return (
+        (filters.gender
+          ? customer.gender.toLowerCase() === filters.gender.toLowerCase()
+          : true) &&
+        (filters.division
+          ? customer.division.toLowerCase() === filters.division.toLowerCase()
+          : true) &&
+        (filters.maritalStatus
+          ? customer.maritalStatus.toLowerCase() ===
+            filters.maritalStatus.toLowerCase()
+          : true)
+      );
+    });
+
+    setFilteredData(newFilteredData);
+    return () => {
+      setFilteredData([]);
+    };
+  }, [filters]);
+
   const totalCustomer = filteredData.length;
-  console.log(filteredData);
 
-  const avg_income = calculateAverageIncomePercentage(filteredData, 100000);
+  const avg_income = calculateAverageIncomePercentage(filteredData);
   const gender = countGender(filteredData);
 
   return (
@@ -42,13 +56,13 @@ const Dashboard = () => {
       <Stack direction="row" spacing={4} alignItems="center">
         <FiltersBar
           label="Select Gender"
-          menu={["Female", "Male"]}
+          menu={["F", "M"]}
           value={filters.gender}
           onChange={(value) => setFilters({ ...filters, gender: value })}
         />
         <FiltersBar
           label="Select Division"
-          menu={["Dhaka", "Chattagram", "Sylhet"]}
+          menu={Object.values(DIVISIONS)}
           value={filters.division}
           onChange={(value) => setFilters({ ...filters, division: value })}
         />
@@ -58,6 +72,7 @@ const Dashboard = () => {
           value={filters.maritalStatus}
           onChange={(value) => setFilters({ ...filters, maritalStatus: value })}
         />
+        <Button onClick={() => setFilters(emptyFilter)}>Reset</Button>
       </Stack>
 
       <Grid container direction={"row"}>
@@ -81,7 +96,7 @@ const Dashboard = () => {
           <CardComponent
             icon={<GrMoney size={24} />}
             label="Average Income"
-            value={avg_income}
+            value={`${avg_income}BDT`}
             sx={{
               background: `linear-gradient(135deg, ${alpha(
                 "#77ed8b",

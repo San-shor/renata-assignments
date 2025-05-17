@@ -1,12 +1,15 @@
 import {
   Box,
   FormControl,
+  IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
+  OutlinedInput,
   Select,
-  Stack,
   alpha,
 } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 interface FilterBerProps {
   label: string;
   menu: string[];
@@ -43,6 +46,25 @@ export default function FiltersBar({
           variant="outlined"
           value={value}
           onChange={(event) => onChange(event.target.value as string)}
+          renderValue={(selected) =>
+            selected ? (
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                {selected}
+                <IconButton
+                  size="small"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onChange("");
+                  }}
+                >
+                  <ClearIcon fontSize="small" />
+                </IconButton>
+              </Box>
+            ) : (
+              <em style={{ color: "#aaa" }}>None</em>
+            )
+          }
         >
           {menu.map((item) => (
             <MenuItem value={item}>{item}</MenuItem>

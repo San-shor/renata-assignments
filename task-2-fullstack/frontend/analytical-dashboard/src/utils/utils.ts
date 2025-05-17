@@ -39,16 +39,14 @@ export const countMaritalStatuses = (data: CustomerData[]) => {
 };
 
 export const calculateAverageIncomePercentage = (
-  data: CustomerData[],
-  maxIncome: number
+  data: CustomerData[]
 ): string => {
-  if (data.length === 0 || maxIncome <= 0) return "0%";
+  if (data.length === 0) return "0.00";
 
   const totalIncome = data.reduce((sum, person) => sum + person.income, 0);
   const averageIncome = totalIncome / data.length;
-  const percentage = (averageIncome / maxIncome) * 100;
 
-  return `${percentage.toFixed(2)}%`;
+  return `${averageIncome.toFixed(2)}`;
 };
 
 export const countGender = (data: CustomerData[]) => {

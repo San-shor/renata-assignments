@@ -1,5 +1,6 @@
 export type MaritalStatus = "Single" | "Married" | "Divorced";
-export interface CustomerData {
+
+export type CustomerData = {
   id: string;
   name: string;
   division: string;
@@ -7,4 +8,10 @@ export interface CustomerData {
   maritalStatus: MaritalStatus;
   age: number;
   income: number;
-}
+};
+
+export type TFilter = {
+  gender: string;
+  division: string;
+  maritalStatus: string;
+};
