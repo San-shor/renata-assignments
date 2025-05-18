@@ -2,12 +2,12 @@ import {
   Box,
   FormControl,
   IconButton,
-  InputAdornment,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
+  ThemeProvider,
   alpha,
+  createTheme,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 interface FilterBerProps {
@@ -17,6 +17,49 @@ interface FilterBerProps {
   onChange: (value: string) => void;
 }
 
+const theme = createTheme({
+  components: {
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#fff",
+          borderRadius: 8,
+          boxShadow: `0 0 2px 0 ${alpha(
+            "#919eab",
+            0.2
+          )}, 0 12px 24px -4px ${alpha("#919eab", 0.12)}`,
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#1976d2",
+          },
+        },
+        notchedOutline: {
+          borderColor: "#c4cdd5",
+        },
+
+        input: {
+          padding: "10px 14px",
+          border: "none",
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          display: "flex",
+          alignItems: "center",
+        },
+      },
+    },
+  },
+});
+
 export default function FiltersBar({
   label,
   menu,
@@ -24,25 +67,15 @@ export default function FiltersBar({
   onChange,
 }: FilterBerProps) {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <FormControl
         size="small"
         sx={{
           minWidth: 150,
-          boxShadow: `0 0 2px 0 ${alpha(
-            "#919eab",
-            0.2
-          )}, 0 12px 24px -4px ${alpha("#919eab", 0.12)}`,
-          borderRadius: 1,
-          backgroundColor: "#fff",
-          borderColor: "green",
         }}
       >
-        <InputLabel id="region-select-label">{label}</InputLabel>
+        <InputLabel>{label}</InputLabel>
         <Select
-          labelId="region-select-label"
-          id="region-select"
-          label="Select Region"
           variant="outlined"
           value={value}
           onChange={(event) => onChange(event.target.value as string)}
@@ -65,12 +98,15 @@ export default function FiltersBar({
               <em style={{ color: "#aaa" }}>None</em>
             )
           }
+          sx={{
+            fontSize: "12px",
+          }}
         >
           {menu.map((item) => (
             <MenuItem value={item}>{item}</MenuItem>
           ))}
         </Select>
       </FormControl>
-    </>
+    </ThemeProvider>
   );
 }
