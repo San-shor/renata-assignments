@@ -1,6 +1,5 @@
-import { Box, InputAdornment, TextField } from '@mui/material';
-import { FiSearch } from 'react-icons/fi';
-import { MdOutlineClear } from 'react-icons/md';
+import { alpha, Box, InputAdornment, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface SearchFilterProps {
   value: string;
@@ -9,28 +8,36 @@ interface SearchFilterProps {
 
 const SearchFilter = ({ value, onChange }: SearchFilterProps) => {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box sx={{ px: 2.5, pb: 2.5 }}>
       <TextField
         fullWidth
-        variant='outlined'
-        size='medium'
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder='Search by name, gender, or division...'
         InputProps={{
           startAdornment: (
             <InputAdornment position='start'>
-              <FiSearch />
+              <SearchIcon sx={{ color: alpha('#919eab', 0.6) }} />
             </InputAdornment>
           ),
-          endAdornment: value && (
-            <InputAdornment
-              position='end'
-              sx={{ cursor: 'pointer' }}
-              onClick={() => onChange('')}>
-              <MdOutlineClear />
-            </InputAdornment>
-          ),
+        }}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 1,
+            backgroundColor: alpha('#919eab', 0.04),
+            '& fieldset': {
+              borderColor: alpha('#919eab', 0.2),
+            },
+            '&:hover fieldset': {
+              borderColor: alpha('#919eab', 0.3),
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#00a76f',
+            },
+          },
+          '& .MuiInputBase-input': {
+            py: 1.5,
+          },
         }}
       />
     </Box>

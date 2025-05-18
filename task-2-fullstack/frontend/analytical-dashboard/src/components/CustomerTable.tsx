@@ -13,13 +13,14 @@ import {
   IconButton,
   Tooltip,
   Button,
+  Typography,
+  alpha,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+
 import { customerData } from '../data/CustomerData';
-import { useTheme } from '@mui/material';
-import { alpha } from '@mui/material/styles';
 import { useState } from 'react';
 import CustomerDialog from './CustomerDialog';
 
@@ -49,7 +50,6 @@ const TableHeader = ({
   order: Order;
   onRequestSort: (property: SortableField) => void;
 }) => {
-  const theme = useTheme();
   const headers = [
     { id: 'id', label: 'ID', sortable: false },
     { id: 'name', label: 'Customer Name', sortable: true },
@@ -69,9 +69,11 @@ const TableHeader = ({
             key={header.id}
             align='center'
             sx={{
-              backgroundColor: alpha(theme.palette.grey[400], 0.24),
-              color: theme.palette.text.secondary,
-              fontWeight: 'bold',
+              backgroundColor: alpha('#919eab', 0.04),
+              color: alpha('#919eab', 0.8),
+              fontWeight: 600,
+              borderBottom: `1px solid ${alpha('#919eab', 0.12)}`,
+              py: 2,
             }}>
             {header.sortable ? (
               <TableSortLabel
@@ -81,6 +83,18 @@ const TableHeader = ({
                 sx={{
                   '& .MuiTableSortLabel-icon': {
                     opacity: orderBy === header.id ? 1 : 0.5,
+                    color: '#00a76f',
+                  },
+                  '&.MuiTableSortLabel-root': {
+                    '&:hover': {
+                      color: '#00a76f',
+                    },
+                  },
+                  '&.Mui-active': {
+                    color: '#00a76f',
+                    '&:hover': {
+                      color: '#00a76f',
+                    },
                   },
                 }}>
                 {header.label}
@@ -105,46 +119,62 @@ const CustomerRow = ({
   onEdit?: (customer: any) => void;
   onDelete?: (customerId: string) => void;
 }) => {
-  const theme = useTheme();
-
   return (
-    <TableRow key={customer.id}>
-      <TableCell align='center'>{customer.id}</TableCell>
-      <TableCell align='center'>{customer.name}</TableCell>
-      <TableCell align='center'>{customer.division}</TableCell>
-      <TableCell align='center'>{customer.gender}</TableCell>
-      <TableCell align='center'>
+    <TableRow
+      key={customer.id}
+      sx={{
+        '&:hover': {
+          backgroundColor: alpha('#919eab', 0.04),
+        },
+      }}>
+      <TableCell align='center' sx={{ py: 2 }}>
+        {customer.id}
+      </TableCell>
+      <TableCell align='center' sx={{ py: 2 }}>
+        {customer.name}
+      </TableCell>
+      <TableCell align='center' sx={{ py: 2 }}>
+        {customer.division}
+      </TableCell>
+      <TableCell align='center' sx={{ py: 2 }}>
+        {customer.gender}
+      </TableCell>
+      <TableCell align='center' sx={{ py: 2 }}>
         <Chip
           label={customer.maritalStatus}
           sx={{
             backgroundColor:
               customer.maritalStatus === MARITAL_STATUS_TYPES.MARRIED
-                ? alpha(theme.palette.success.light, 0.2)
+                ? alpha('#00a76f', 0.16)
                 : customer.maritalStatus === MARITAL_STATUS_TYPES.SINGLE
-                ? alpha(theme.palette.secondary.light, 0.2)
-                : alpha(theme.palette.warning.light, 0.2),
+                ? alpha('#8e33ff', 0.16)
+                : alpha('#ff5630', 0.16),
             color:
               customer.maritalStatus === MARITAL_STATUS_TYPES.MARRIED
-                ? theme.palette.success.main
+                ? '#00a76f'
                 : customer.maritalStatus === MARITAL_STATUS_TYPES.SINGLE
-                ? theme.palette.secondary.main
-                : theme.palette.warning.main,
-            fontWeight: 'bold',
+                ? '#8e33ff'
+                : '#ff5630',
+            fontWeight: 600,
           }}
         />
       </TableCell>
-      <TableCell align='center'>{customer.age}</TableCell>
-      <TableCell align='center'>{customer.income}</TableCell>
-      <TableCell align='center'>
+      <TableCell align='center' sx={{ py: 2 }}>
+        {customer.age}
+      </TableCell>
+      <TableCell align='center' sx={{ py: 2 }}>
+        {customer.income}
+      </TableCell>
+      <TableCell align='center' sx={{ py: 2 }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
           <Tooltip title='Edit'>
             <IconButton
               size='small'
               onClick={() => onEdit?.(customer)}
               sx={{
-                color: theme.palette.primary.main,
+                color: '#00a76f',
                 '&:hover': {
-                  backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                  backgroundColor: alpha('#00a76f', 0.08),
                 },
               }}>
               <EditIcon fontSize='small' />
@@ -155,9 +185,9 @@ const CustomerRow = ({
               size='small'
               onClick={() => onDelete?.(customer.id)}
               sx={{
-                color: theme.palette.error.main,
+                color: '#ff5630',
                 '&:hover': {
-                  backgroundColor: alpha(theme.palette.error.main, 0.1),
+                  backgroundColor: alpha('#ff5630', 0.08),
                 },
               }}>
               <DeleteIcon fontSize='small' />
@@ -175,7 +205,6 @@ const CustomerTable = ({
   onDelete,
   onAdd,
 }: CustomerTableProps) => {
-  const theme = useTheme();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [orderBy, setOrderBy] = useState<SortableField>('name');
@@ -223,25 +252,86 @@ const CustomerTable = ({
   return (
     <Card
       sx={{
+        borderRadius: 2,
         boxShadow: `0 0 2px 0 ${alpha(
-          theme.palette.grey[500],
+          '#919eab',
           0.2
-        )}, 0 12px 24px -4px ${alpha(theme.palette.grey[500], 0.12)}`,
+        )}, 0 12px 24px -4px ${alpha('#919eab', 0.12)}`,
       }}>
-      <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
+      <Box
+        sx={{
+          p: 2.5,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <Typography variant='h6' sx={{ fontWeight: 600 }}>
+          Customers
+        </Typography>
         <Button
           variant='contained'
           startIcon={<AddIcon />}
           onClick={() => setOpenAddDialog(true)}
           sx={{
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: '#00a76f',
+            color: '#ffffff',
+            borderRadius: 1,
+            px: 3,
+            py: 1,
+            textTransform: 'none',
+            fontWeight: 600,
+            boxShadow: `0 0 2px 0 ${alpha(
+              '#00a76f',
+              0.2
+            )}, 0 4px 8px -4px ${alpha('#00a76f', 0.12)}`,
             '&:hover': {
-              backgroundColor: theme.palette.primary.dark,
+              backgroundColor: '#007867',
+              boxShadow: `0 0 2px 0 ${alpha(
+                '#00a76f',
+                0.2
+              )}, 0 8px 16px -4px ${alpha('#00a76f', 0.12)}`,
+            },
+            '& .MuiButton-startIcon': {
+              marginRight: 1,
             },
           }}>
           Add Customer
         </Button>
       </Box>
+
+      {/* <Box sx={{ px: 2.5, pb: 2.5 }}>
+        <TextField
+          fullWidth
+          placeholder='Search customer...'
+          value={searchQuery}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position='start'>
+                <SearchIcon sx={{ color: alpha('#919eab', 0.6) }} />
+              </InputAdornment>
+            ),
+          }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              borderRadius: 1,
+              backgroundColor: alpha('#919eab', 0.04),
+              '& fieldset': {
+                borderColor: alpha('#919eab', 0.2),
+              },
+              '&:hover fieldset': {
+                borderColor: alpha('#919eab', 0.3),
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#00a76f',
+              },
+            },
+            '& .MuiInputBase-input': {
+              py: 1.5,
+            },
+          }}
+        />
+      </Box> */}
+
       <TableContainer
         sx={{
           position: 'relative',
@@ -268,7 +358,8 @@ const CustomerTable = ({
           </TableBody>
         </Table>
       </TableContainer>
-      <Box>
+
+      <Box sx={{ borderTop: `1px solid ${alpha('#919eab', 0.12)}` }}>
         <TablePagination
           component='div'
           labelRowsPerPage='Rows per page'
@@ -278,6 +369,15 @@ const CustomerTable = ({
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{
+            '& .MuiTablePagination-select': {
+              borderRadius: 1,
+            },
+            '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows':
+              {
+                color: alpha('#919eab', 0.8),
+              },
+          }}
         />
       </Box>
 

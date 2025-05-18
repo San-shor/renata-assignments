@@ -62,36 +62,61 @@ const CustomerDialog = ({
     });
   };
 
+  const textFieldStyles = {
+    '& .MuiOutlinedInput-root': {
+      borderRadius: 1,
+      backgroundColor: alpha('#919eab', 0.04),
+      '& fieldset': {
+        borderColor: alpha('#919eab', 0.2),
+      },
+      '&:hover fieldset': {
+        borderColor: alpha('#919eab', 0.3),
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#00a76f',
+      },
+    },
+    '& .MuiInputLabel-root': {
+      color: alpha('#919eab', 0.8),
+      '&.Mui-focused': {
+        color: '#00a76f',
+      },
+    },
+    '& .MuiOutlinedInput-input': {
+      padding: '10px 14px',
+    },
+  };
+
   return (
     <Dialog
       open={open}
       onClose={onClose}
-      maxWidth='sm'
+      maxWidth='xs'
       fullWidth
       PaperProps={{
         sx: {
           borderRadius: 2,
           boxShadow: `0 0 2px 0 ${alpha(
-            theme.palette.grey[500],
+            '#919eab',
             0.2
-          )}, 0 12px 24px -4px ${alpha(theme.palette.grey[500], 0.12)}`,
+          )}, 0 12px 24px -4px ${alpha('#919eab', 0.12)}`,
         },
       }}>
       <DialogTitle
         sx={{
-          p: 3,
-          borderBottom: `1px solid ${alpha(theme.palette.grey[500], 0.12)}`,
+          p: 2.5,
+          borderBottom: `1px solid ${alpha('#919eab', 0.12)}`,
         }}>
         <Typography variant='h6' sx={{ fontWeight: 600 }}>
           Add New Customer
         </Typography>
       </DialogTitle>
-      <DialogContent sx={{ p: 3 }}>
-        <Stack spacing={3}>
+      <DialogContent sx={{ p: 2.5 }}>
+        <Stack spacing={2.5}>
           <Box>
             <Typography
               variant='subtitle2'
-              sx={{ mb: 1, color: 'text.secondary' }}>
+              sx={{ mb: 1, color: alpha('#919eab', 0.8) }}>
               Basic Information
             </Typography>
             <Stack spacing={2}>
@@ -102,11 +127,7 @@ const CustomerDialog = ({
                 onChange={handleInputChange('name')}
                 required
                 size='small'
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 1,
-                  },
-                }}
+                sx={textFieldStyles}
               />
               <TextField
                 label='Division'
@@ -115,11 +136,7 @@ const CustomerDialog = ({
                 onChange={handleInputChange('division')}
                 required
                 size='small'
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 1,
-                  },
-                }}
+                sx={textFieldStyles}
               />
             </Stack>
           </Box>
@@ -127,7 +144,7 @@ const CustomerDialog = ({
           <Box>
             <Typography
               variant='subtitle2'
-              sx={{ mb: 1, color: 'text.secondary' }}>
+              sx={{ mb: 1, color: alpha('#919eab', 0.8) }}>
               Personal Details
             </Typography>
             <Stack spacing={2}>
@@ -139,11 +156,7 @@ const CustomerDialog = ({
                 onChange={handleInputChange('gender')}
                 required
                 size='small'
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 1,
-                  },
-                }}>
+                sx={textFieldStyles}>
                 <MenuItem value='Male'>Male</MenuItem>
                 <MenuItem value='Female'>Female</MenuItem>
               </TextField>
@@ -155,11 +168,7 @@ const CustomerDialog = ({
                 onChange={handleInputChange('maritalStatus')}
                 required
                 size='small'
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 1,
-                  },
-                }}>
+                sx={textFieldStyles}>
                 {Object.values(MARITAL_STATUSES).map((status) => (
                   <MenuItem key={status} value={status}>
                     {status}
@@ -172,7 +181,7 @@ const CustomerDialog = ({
           <Box>
             <Typography
               variant='subtitle2'
-              sx={{ mb: 1, color: 'text.secondary' }}>
+              sx={{ mb: 1, color: alpha('#919eab', 0.8) }}>
               Financial Information
             </Typography>
             <Stack spacing={2}>
@@ -184,11 +193,7 @@ const CustomerDialog = ({
                 onChange={handleInputChange('age')}
                 required
                 size='small'
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 1,
-                  },
-                }}
+                sx={textFieldStyles}
               />
               <TextField
                 label='Income'
@@ -198,11 +203,7 @@ const CustomerDialog = ({
                 onChange={handleInputChange('income')}
                 required
                 size='small'
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 1,
-                  },
-                }}
+                sx={textFieldStyles}
               />
             </Stack>
           </Box>
@@ -210,15 +211,15 @@ const CustomerDialog = ({
       </DialogContent>
       <DialogActions
         sx={{
-          p: 3,
-          borderTop: `1px solid ${alpha(theme.palette.grey[500], 0.12)}`,
+          p: 2.5,
+          borderTop: `1px solid ${alpha('#919eab', 0.12)}`,
         }}>
         <Button
           onClick={onClose}
           sx={{
-            color: 'text.secondary',
+            color: alpha('#919eab', 0.8),
             '&:hover': {
-              backgroundColor: alpha(theme.palette.grey[500], 0.08),
+              backgroundColor: alpha('#919eab', 0.08),
             },
           }}>
           Cancel
@@ -236,9 +237,22 @@ const CustomerDialog = ({
           }
           sx={{
             px: 3,
+            py: 1,
+            backgroundColor: '#00a76f',
+            color: '#ffffff',
             borderRadius: 1,
+            textTransform: 'none',
+            fontWeight: 600,
+            boxShadow: `0 0 2px 0 ${alpha(
+              '#00a76f',
+              0.2
+            )}, 0 4px 8px -4px ${alpha('#00a76f', 0.12)}`,
             '&:hover': {
-              boxShadow: 'none',
+              backgroundColor: '#007867',
+              boxShadow: `0 0 2px 0 ${alpha(
+                '#00a76f',
+                0.2
+              )}, 0 8px 16px -4px ${alpha('#00a76f', 0.12)}`,
             },
           }}>
           Add Customer
