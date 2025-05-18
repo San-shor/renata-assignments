@@ -7,52 +7,86 @@ import {
   Toolbar,
   Typography,
   Box,
-} from "@mui/material";
-import { BsGraphUpArrow } from "react-icons/bs";
-import { FaUsersCog, FaUserFriends } from "react-icons/fa";
-import { NavLink } from "react-router";
+  alpha,
+} from '@mui/material';
+import { BsGraphUpArrow } from 'react-icons/bs';
+import { FaUsersCog, FaUserFriends } from 'react-icons/fa';
+import { NavLink } from 'react-router';
 
 const menuItems = [
-  { text: "Dashboard", icon: <BsGraphUpArrow />, path: "/" },
-  { text: "Customers", icon: <FaUserFriends />, path: "/customers" },
-  { text: "User Management", icon: <FaUsersCog />, path: "/" },
+  { text: 'Dashboard', icon: <BsGraphUpArrow />, path: '/' },
+  { text: 'Customers', icon: <FaUserFriends />, path: '/customers' },
+  { text: 'User Management', icon: <FaUsersCog />, path: '/users' },
 ];
 
 const SideBar = () => {
   return (
     <Drawer
-      variant="permanent"
-      anchor="left"
+      variant='permanent'
+      anchor='left'
       sx={{
-        width: 240,
+        width: 280,
         flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: 240,
-          backdropFilter: "blur(12px)",
-          background: "rgba(255, 255, 255, 0.1)",
-          borderRight: "1px solid rgba(255, 255, 255, 0.2)",
-          color: "#fff",
-          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-          boxSizing: "border-box",
+        '& .MuiDrawer-paper': {
+          width: 280,
+          borderRight: `1px solid ${alpha('#919eab', 0.12)}`,
+          boxShadow: `0 0 2px 0 ${alpha(
+            '#919eab',
+            0.2
+          )}, 0 12px 24px -4px ${alpha('#919eab', 0.12)}`,
+          boxSizing: 'border-box',
+          backgroundColor: '#ffffff',
         },
-      }}
-    >
-      <Toolbar>
-        <Typography variant="h6" noWrap sx={{ pl: 1, color: "#000" }}>
+      }}>
+      <Toolbar sx={{ px: 2.5, py: 3 }}>
+        <Typography
+          variant='h6'
+          sx={{
+            fontWeight: 600,
+            color: alpha('#212b36', 0.8),
+            letterSpacing: 0.5,
+          }}>
           Analytics Panel
         </Typography>
       </Toolbar>
-      <Box sx={{ overflow: "auto", mt: 2 }}>
-        <List>
+
+      <Box sx={{ px: 2.5, py: 1 }}>
+        <List disablePadding>
           {menuItems.map((item) => (
-            <ListItemButton key={item.text} sx={{ color: "#000" }}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <NavLink
-                to={item.path ?? "/"}
-                style={{ textDecoration: "none", color: "#000" }}
-              >
-                <ListItemText primary={item.text} />
-              </NavLink>
+            <ListItemButton
+              key={item.text}
+              component={NavLink}
+              to={item.path ?? '/'}
+              sx={{
+                borderRadius: 1,
+                mb: 0.5,
+                color: alpha('#637381', 0.8),
+                '&:hover': {
+                  backgroundColor: alpha('#00a76f', 0.08),
+                  color: '#00a76f',
+                },
+                '&.active': {
+                  backgroundColor: alpha('#00a76f', 0.08),
+                  color: '#00a76f',
+                  '& .MuiListItemIcon-root': {
+                    color: '#00a76f',
+                  },
+                },
+              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 40,
+                  color: 'inherit',
+                }}>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText
+                primary={item.text}
+                primaryTypographyProps={{
+                  fontWeight: 500,
+                  fontSize: '0.875rem',
+                }}
+              />
             </ListItemButton>
           ))}
         </List>
