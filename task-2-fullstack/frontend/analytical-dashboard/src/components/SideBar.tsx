@@ -10,13 +10,12 @@ import {
   alpha,
 } from '@mui/material';
 import { BsGraphUpArrow } from 'react-icons/bs';
-import { FaUsersCog, FaUserFriends } from 'react-icons/fa';
+import { FaUserFriends } from 'react-icons/fa';
 import { NavLink } from 'react-router';
 
 const menuItems = [
   { text: 'Dashboard', icon: <BsGraphUpArrow />, path: '/' },
   { text: 'Customers', icon: <FaUserFriends />, path: '/customers' },
-  { text: 'User Management', icon: <FaUsersCog />, path: '/users' },
 ];
 
 const SideBar = () => {
