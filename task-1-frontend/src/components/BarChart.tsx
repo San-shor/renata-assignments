@@ -99,7 +99,7 @@ const BarChart = () => {
             justifySelf={"end"}
           >
             <div
-              className={`h-[${valueRangeHeight}px] w-[20px]`}
+              className={`h-[350px] w-[20px]`}
               style={{
                 backgroundImage:
                   "linear-gradient(to top,var(--bar-color-1), var(--bar-color-2), var(--bar-color-3), var(--bar-color-4), var(--bar-color-5), var(--bar-color-6), var(--bar-color-7), var(--bar-color-8), var(--bar-color-9))",
@@ -110,7 +110,7 @@ const BarChart = () => {
 
             <Box
               style={{
-                height: `${valueRangeHeight}px`,
+                height: `350px`,
                 position: "relative",
                 pointerEvents: "none",
               }}
