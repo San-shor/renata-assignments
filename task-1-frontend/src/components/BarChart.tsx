@@ -80,7 +80,7 @@ const options = {
 };
 
 const BarChart = () => {
-  const valueRangeHeight = 350;
+  // const valueRangeHeight = 350;
 
   return (
     <Grid spacing={5} container pr={10}>
